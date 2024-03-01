@@ -60,15 +60,23 @@ while True:
     user_choice = input("Do you want to : Show/Add/Delete or Quit?: ")
     if user_choice == 'add':
         item = input('What item do you want to add?: ')
-        shopping_list[item] = "none"
+        quan = int(input('How many items do you want to add?: '))
+        shopping_list[item] = quan
     elif user_choice == 'delete':
         remove_item = input('What item do you want to delete?: ')
-        shopping_list.pop(remove_item)
+        quan = int(input('How many?: '))
+        if remove_item in shopping_list:
+            shopping_list[remove_item] -= quan
+            if shopping_list[remove_item] < 1:
+                del(shopping_list[remove_item])
+                print(f'{remove_item} removed from cart')
+            else:
+                print(f'You now have {shopping_list[remove_item]} of {remove_item} in your cart')
+
     elif user_choice == 'show':
         print('Your shopping list includes:')
-        for key in shopping_list.keys():
-            print(key)
-        
+        for k,v in shopping_list.items():
+            print(f'there are {v} {k} in your cart')
     elif user_choice == 'quit':
         break
     else: print("enter valid input")
